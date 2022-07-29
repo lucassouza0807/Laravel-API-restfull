@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pedido tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+.pedido {
+    position: relative;
+    width: 60vw;
+    top: -570px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1rem;
+}
+
+.dataFilter {
+    margin-bottom: 1rem;
+}
+.dataFilter form input {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.pedido form button {
+    background-color: blue;
+    color: white;
+    width: 7.5rem;
+    border-radius: 10px;
+    font-weight: bold
+}
+
+.quantidade {
+    width: 60vw;
+    text-align: right;
+    padding-left: 30px;
+    padding-right: 30px;
+}

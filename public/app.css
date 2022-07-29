@@ -1,0 +1,49 @@
+.loginContainer body {
+    margin: 0;
+    padding: 0;
+    margin-top: 0;
+    background-color: beige;
+}
+
+.loginContainer {
+    position: relative;
+    top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 25rem;
+    height: 25rem;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.loginContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loginContainer form input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 2.5rem;
+    width: 20rem;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    background-color: lightgray;
+    font-size: larger;
+    padding-left: 15px;
+}
+
+.sbmt-button button {
+    font-weight: bolder;
+    background-color: lightcoral;
+    width: 80%;
+    border: none;
+    height: 2.5rem;
+    border-radius: 10px;
+}
