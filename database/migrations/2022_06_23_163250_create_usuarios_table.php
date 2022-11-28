@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("nome");
             $table->string("sobrenome");
             $table->string("email")->unique();
-            $table->string("senha");
+            $table->string("password");
             $table->boolean("is_active");
             $table->timestamps();
         });

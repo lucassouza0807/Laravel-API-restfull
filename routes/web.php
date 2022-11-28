@@ -19,3 +19,6 @@ use App\Mail\TestEmail;
 use App\Models\Pedidos;
 use Illuminate\Support\Facades\Mail;
 
+Route::get("/fake/register_product", function() {
+    return View("home");
+});

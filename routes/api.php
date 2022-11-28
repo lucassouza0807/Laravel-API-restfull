@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\CatalogoController;
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\CatalogoController;
 |
 */
 
-Route::middleware(['apiSecret'])->group(function () {
+Route::group(['middleware' => 'apiSecret'], function () {
     Route::get("/user", function () {
         return response()->json(["mensagem" => "Middleware"]);
     });
@@ -26,10 +27,12 @@ Route::middleware(['apiSecret'])->group(function () {
 });
 
 
-Route::middleware(['apiSecret'])->group(function () {
-    Route::post("v1/login", [LoginController::class, "login"]);
+Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
+    Route::post("/login", [LoginController::class, "login"]);
 
-    Route::post("v1/logout", [LoginController::class, "logout"]);
+    Route::post("/logout", [LoginController::class, "logout"]);
 
-    
+    Route::post("/register", [RegisterController::class, "register"]);
+
+    Route::post("/update", [RegisterController::class, "register"]);
 });

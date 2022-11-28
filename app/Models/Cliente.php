@@ -19,9 +19,11 @@ class Cliente extends Authenticatable
     protected $primaryKey = "usuario_id";
 
     protected $fillable = [
-        'name',
+        'nome',
         'email',
-        'senha',
+        'sobrenome',
+        'password',
+        "is_active"
     ];
 
     /**
