@@ -1,10 +1,12 @@
-<?php
+<?php header("Content-type: text/html; charset=utf-8");
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LoginController;
-use App\Http\Controllers\Api\RegisterController;
-use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Products\ProductCatalogController;
+use App\Helpers\JWTDecoder;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,22 +19,32 @@ use App\Http\Controllers\CatalogoController;
 */
 
 Route::group(['middleware' => 'apiSecret'], function () {
-    Route::get("/user", function () {
-        return response()->json(["mensagem" => "Middleware"]);
-    });
+    Route::get("v1/products/index", [ProductCatalogController::class, "index"]);
 
-    Route::get("v1/produtos/index", [CatalogoController::class, "index"]);
-
-    Route::get("v1/produto/{produto_nome}", [CatalogoController::class, "pesquisarProdutoPorNome"]);
+    Route::get("v1/products/{product_name}", [ProductCatalogController::class, "searchByProductName"]);
 });
 
+Route::group(['middleware' => ["auth:sanctum"], "prefix" => "admin"], function () {
+    Route::get("/server", function() {
+        return "aasd";
+    });
+});
 
 Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
     Route::post("/login", [LoginController::class, "login"]);
 
-    Route::post("/logout", [LoginController::class, "logout"]);
+    Route::post("/logout/{id}", [LoginController::class, "logout"]);
 
     Route::post("/register", [RegisterController::class, "register"]);
 
     Route::post("/update", [RegisterController::class, "register"]);
+});
+
+
+Route::get("/teste-jwt", function(Request $request) {
+    $token = $request->header('JWT');
+    
+    return JWTDecoder::handle($token);
+
+    //return response()->json(["nome" => "Lucas"]);
 });

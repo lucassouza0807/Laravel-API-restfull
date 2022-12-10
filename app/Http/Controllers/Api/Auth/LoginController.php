@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente;
-use Error;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        
+
         $usuario = Cliente::where("email", $request->email)->get()->first();
-        
-        if (is_null($usuario)) {
+
+        if (!$usuario) {
             return response()->json([
                 "success" => false,
                 "error_type" => "email",
-                "message" => "Não foi possível econtrar sua conta em nosso sistema"
+                "message" => "Os dados informados não correspondem no nosso sistema."
             ]);
         }
 
@@ -30,18 +29,18 @@ class LoginController extends Controller
                 "cliente_nome" => $usuario->nome,
                 "token" => $usuario->createToken("user_token")->plainTextToken
             ]);
-        } else {
-            return response()->json([
-                "success" => false,
-                "error_type" => "password",
-                "message" => "A senha informada está incorreta",
-            ]);
         }
+
+        return response()->json([
+            "success" => false,
+            "error_type" => "password",
+            "message" => "A senha informada está incorreta",
+        ], 401);
     }
- 
-    public function logout(Request $request): void
+
+    public function logout($id): void
     {
-        $usuario = Cliente::where("cliente_id", $request->cliente_id)->get()->first();
+        $usuario = Cliente::where("usuario_id", $id)->get()->first();
 
         $usuario->tokens()->delete();
     }

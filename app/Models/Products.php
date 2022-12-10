@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Produtos extends Model
+class Products extends Model
 {
     use HasFactory;
 
-    protected $table = "produtos";
-    protected $primaryKey = "produto_id";
+    protected $table = "products";
+    protected $primaryKey = "product_id";
 
     protected $fillable = [
-        
+        "name",
+        "description",
+        "price",
+        "category",
+        "sub_category",
+        "quatity"
     ];
 
 }
