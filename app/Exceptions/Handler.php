@@ -55,5 +55,13 @@ class Handler extends ExceptionHandler
                 ], 404);
             }
          });
+
+         $this->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Não autorizado'
+                ], 401);
+            }
+        });
     }
 }

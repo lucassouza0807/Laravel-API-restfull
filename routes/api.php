@@ -24,7 +24,7 @@ Route::group(['middleware' => 'apiSecret'], function () {
     Route::get("v1/products/{product_name}", [ProductCatalogController::class, "searchByProductName"]);
 });
 
-Route::group(['middleware' => ["auth:sanctum"], "prefix" => "admin"], function () {
+Route::group(['middleware' => ["auth:sanctum", "abilities:is-admin, can:*"], "prefix" => "admin"], function () {
     Route::get("/server", function() {
         return "aasd";
     });
