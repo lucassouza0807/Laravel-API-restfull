@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Products\ProductCatalogController;
+use App\Http\Controllers\Api\Auth\UserController;
 use App\Helpers\JWTDecoder;
 
 /*
@@ -25,9 +26,10 @@ Route::group(['middleware' => 'apiSecret'], function () {
 });
 
 Route::group(['middleware' => ["auth:sanctum", "abilities:is-admin, can:*"], "prefix" => "admin"], function () {
-    Route::get("/server", function() {
-        return "aasd";
-    });
+});
+
+Route::group(['middleware' => "auth:sanctum", "prefix" => "v1"], function () {
+    Route::get("/user/{user_id}", [UserController::class, "getUserInfo"]);
 });
 
 Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
@@ -41,9 +43,9 @@ Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
 });
 
 
-Route::get("/teste-jwt", function(Request $request) {
+Route::get("/teste-jwt", function (Request $request) {
     $token = $request->header('JWT');
-    
+
     return JWTDecoder::handle($token);
 
     //return response()->json(["nome" => "Lucas"]);

@@ -17,25 +17,25 @@ class LoginController extends Controller
         if (!$usuario) {
             return response()->json([
                 "success" => false,
-                "error_type" => "email",
-                "message" => "Os dados informados não correspondem no nosso sistema."
+                "message" => "Os dados informados não correspondem no nosso sistema.",
             ]);
         }
 
         if (Hash::check($request->password, $usuario->password, ["rounds" => 12])) {
             return response()->json([
                 "success" => true,
-                "cliente_id" => $usuario->usuario_id,
-                "cliente_nome" => $usuario->nome,
-                "token" => $usuario->createToken("user_token", ["can-read", "can-update"])->plainTextToken
+                "token" => $usuario->createToken("user_token", ["can-read", "can-update"])->plainTextToken,
+                "user" => [
+                    "cliente_id" => $usuario->usuario_id,
+                    "nome" => $usuario->nome,
+                ]
             ]);
         }
 
         return response()->json([
             "success" => false,
-            "error_type" => "password",
             "message" => "A senha informada está incorreta",
-        ], 401);
+        ]);
     }
 
     public function logout($id): void

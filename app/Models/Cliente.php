@@ -33,7 +33,10 @@ class Cliente extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
-        'senha'
+        'password',
+        'is_active',
+        'created_at',
+        'updated_at',
     ];
 
     protected $casts = [

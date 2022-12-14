@@ -19,7 +19,7 @@ class Products extends Model
         "price",
         "category",
         "sub_category",
-        "quatity"
+        "quantity"
     ];
 
 }
