@@ -19,11 +19,14 @@ use App\Helpers\JWTDecoder;
 |
 */
 
-Route::group(['middleware' => 'apiSecret'], function () {
-    Route::get("v1/products/index", [ProductCatalogController::class, "index"]);
+Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
+    Route::get("/products/index", [ProductCatalogController::class, "index"]);
 
-    Route::get("v1/products/{product_name}", [ProductCatalogController::class, "searchByProductName"]);
+    Route::get("/products/{product_name}", [ProductCatalogController::class, "searchByProductName"]);
+
+    Route::get("/activate_account/{token}", [UserController::class, "activateAccount"]);
 });
+
 
 Route::group(['middleware' => ["auth:sanctum", "abilities:is-admin, can:*"], "prefix" => "admin"], function () {
 });
@@ -40,16 +43,4 @@ Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
     Route::post("/register", [RegisterController::class, "register"]);
 
     Route::post("/update", [RegisterController::class, "register"]);
-});
-
-Route::get("/send-email", function() {
-    return "Lucas";
-});
-
-Route::get("/teste-jwt", function (Request $request) {
-    $token = $request->header('JWT');
-
-    return JWTDecoder::handle($token);
-
-    //return response()->json(["nome" => "Lucas"]);
 });
