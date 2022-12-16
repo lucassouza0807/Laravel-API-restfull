@@ -42,6 +42,9 @@ Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
     Route::post("/update", [RegisterController::class, "register"]);
 });
 
+Route::get("/send-email", function() {
+    return "Lucas";
+});
 
 Route::get("/teste-jwt", function (Request $request) {
     $token = $request->header('JWT');

@@ -23,7 +23,8 @@ class Cliente extends Authenticatable
         'email',
         'sobrenome',
         'password',
-        "is_active"
+        "is_active",
+        "activate_token"
     ];
 
     /**

@@ -28,6 +28,7 @@ class LoginController extends Controller
                 "user" => [
                     "cliente_id" => $usuario->usuario_id,
                     "nome" => $usuario->nome,
+                    "email" => $usuario->email
                 ]
             ]);
         }
