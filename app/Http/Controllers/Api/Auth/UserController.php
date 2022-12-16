@@ -25,19 +25,19 @@ class UserController extends Controller
 
         if (!$cliente) {
             return response()->json([
-                "message" => "Token invalido"
+                "message" => "Token inválido"
             ]);
         }
 
         if ($cliente->is_active == true) {
             return response()->json([
-                "message" => "Usuario já ativado"
+                "message" => "Usuário já ativado!"
             ]);
         }
 
         $cliente->is_active = true;
         $cliente->save();
-        return response()->json(["message" => "usuario ativado com sucesso"]);
-        
+        return response()->json(["message" => "Usuário ativado com sucesso!"]);
+
     }
 }

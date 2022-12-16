@@ -22,6 +22,13 @@ class LoginController extends Controller
         }
 
         if (Hash::check($request->password, $usuario->password, ["rounds" => 12])) {
+            if($usuario->is_active == false) {
+                return response()->json([
+                    "success" => false,
+                    "message" => "Ops parece que você ainda não ativou sua conta! verifique seu Email."
+                ]);
+            }
+
             return response()->json([
                 "success" => true,
                 "token" => $usuario->createToken("user_token", ["can-read", "can-update"])->plainTextToken,
