@@ -1,15 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    ProdutoController,
-    UserSessionConntroller,
-    AdminController,
-    AdminSessionController,
-    EstoqueController,
-    AdminPedidoController,
-    TestApplicationCotrolller as Test
-};
+use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Resources\Produtos;
 use App\Models\Admin;
 use App\Providers\PDFServiceProvider;
@@ -20,9 +12,7 @@ use App\Models\Pedidos;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Cliente;
 
-Route::get("/fake/register_product", function () {
-    return View("home");
-});
+Route::get("/teste/{user_id}",[UserController::class, "getUserInfo"]);
 
 Route::get("active_account/{token}", function ($token) {
     

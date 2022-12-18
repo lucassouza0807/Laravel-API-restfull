@@ -7,16 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cliente;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
     public function getUserInfo($user_id)
     {
-        $token = PersonalAccessToken::where('tokenable_id', $user_id)->first();
 
-        $user = $token->tokenable;
+        $user = Cache::remember("user-ifo", 60 * 60 * 1, function() use ($user_id) {
+            $user_query = PersonalAccessToken::where('tokenable_id', $user_id)->first();
 
-        return $user;
+            return $user_query->tokenable;
+        });
+        
+        return view("teste", ["user_info", $user]);
     }
 
     public function activateAccount($token)
@@ -38,6 +42,5 @@ class UserController extends Controller
         $cliente->is_active = true;
         $cliente->save();
         return response()->json(["message" => "Usuário ativado com sucesso!"]);
-
     }
 }

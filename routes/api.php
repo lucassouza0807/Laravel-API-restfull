@@ -28,9 +28,6 @@ Route::group(['middleware' => 'apiSecret', "prefix" => "v1"], function () {
 });
 
 
-Route::group(['middleware' => ["auth:sanctum", "abilities:is-admin, can:*"], "prefix" => "admin"], function () {
-});
-
 Route::group(['middleware' => "auth:sanctum", "prefix" => "v1"], function () {
     Route::get("/user/{user_id}", [UserController::class, "getUserInfo"]);
 });

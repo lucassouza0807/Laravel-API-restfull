@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Cliente;
+use App\Models\User;
 use Illuminate\Support\Str;
 use App\Jobs\SendActivationEmail;
 
@@ -31,7 +31,7 @@ class RegisterController extends Controller
                 "password" => "required|min:8|confirmed",
             ]);
 
-            Cliente::create([
+            User::create([
                 "nome" => $request->nome,
                 "sobrenome" => $request->sobrenome,
                 "email" => $request->email,
