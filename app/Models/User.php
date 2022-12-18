@@ -24,7 +24,7 @@ class User extends Authenticatable
         'sobrenome',
         'password',
         "is_active",
-        "activate_token"
+        "activation_token"
     ];
 
     /**
@@ -34,6 +34,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
+        'activation_token',
         'password',
         'is_active',
         'created_at',

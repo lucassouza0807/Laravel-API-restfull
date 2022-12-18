@@ -32,7 +32,7 @@ class AccountCreated extends Mailable
      */
     public function build()
     {
-        return $this->subject("Ative sua conta")->view('mail.acount_created', [
+        return $this->view('mail.acount_created', [
             "nome" => $this->nome,
             "token" => $this->token
         ]);

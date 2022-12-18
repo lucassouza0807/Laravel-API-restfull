@@ -36,7 +36,7 @@ class RegisterController extends Controller
                 "sobrenome" => $request->sobrenome,
                 "email" => $request->email,
                 "password" => Hash::make($request->password, ["rounds" => 12]),
-                "activate_token" => $activation_token,
+                "activation_token" => $activation_token,
                 "is_active" => false
             ]);
 
@@ -57,6 +57,7 @@ class RegisterController extends Controller
                 "error" => $message->errors()
             ]);
         } catch (QueryException $error) {
+            //dd($error->getMessage());
             return $error->getCode() == 23000
                 ? response()->json([
                     "error" => [

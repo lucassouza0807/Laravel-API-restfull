@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Mail\TestEmail;
 use App\Models\Pedidos;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Cliente;
+use App\Models\User;
 
 Route::get("/teste/{user_id}",[UserController::class, "getUserInfo"]);
 

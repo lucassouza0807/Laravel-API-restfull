@@ -8,24 +8,29 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\QueryException;
+
 
 class UserController extends Controller
 {
     public function getUserInfo($user_id)
     {
 
-        $user = Cache::remember("user-info", 60 * 60 * 1, function() use ($user_id) {
-            $user_query = PersonalAccessToken::where('tokenable_id', $user_id)->first();
+        $user = PersonalAccessToken::where('tokenable_id', $user_id)->first();
 
-            return $user_query->tokenable;
-        });
-        
-        return Cache::get('user-info');
+        if (!$user) {
+            return response()->json([
+                "message" => "token não pertence a esse usuario"
+            ]);
+        }
+
+        return $user->tokenable;
+
     }
 
     public function activateAccount($token)
     {
-        $cliente = User::where("activate_token", $token)->get()->first();
+        $cliente = User::where("activation_token", $token)->get()->first();
 
         if (!$cliente) {
             return response()->json([

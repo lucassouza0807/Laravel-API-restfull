@@ -15,9 +15,9 @@ class UserObserver
      * @param  \App\Models\User  $user
      * @return void
      */
-    public function created(User $user, Request $request)
+    public function created(User $user)
     {
-        $activation_token = Str::random(32);
+        //$activation_token = Str::random(32);
     }
 
     /**

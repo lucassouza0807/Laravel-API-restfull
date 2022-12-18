@@ -33,7 +33,7 @@ class LoginController extends Controller
                 "success" => true,
                 "token" => $usuario->createToken("user_token", ["can-read", "can-update"])->plainTextToken,
                 "user" => [
-                    "User_id" => $usuario->usuario_id,
+                    "usuario_id" => $usuario->usuario_id,
                     "nome" => $usuario->nome,
                     "email" => $usuario->email
                 ]
