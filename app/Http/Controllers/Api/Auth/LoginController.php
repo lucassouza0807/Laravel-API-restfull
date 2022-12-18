@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Cliente;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
 
-        $usuario = Cliente::where("email", $request->email)->get()->first();
+        $usuario = User::where("email", $request->email)->get()->first();
 
         if (!$usuario) {
             return response()->json([
@@ -33,7 +33,7 @@ class LoginController extends Controller
                 "success" => true,
                 "token" => $usuario->createToken("user_token", ["can-read", "can-update"])->plainTextToken,
                 "user" => [
-                    "cliente_id" => $usuario->usuario_id,
+                    "User_id" => $usuario->usuario_id,
                     "nome" => $usuario->nome,
                     "email" => $usuario->email
                 ]
@@ -48,7 +48,7 @@ class LoginController extends Controller
 
     public function logout($id): void
     {
-        $usuario = Cliente::where("usuario_id", $id)->get()->first();
+        $usuario = User::where("usuario_id", $id)->get()->first();
 
         $usuario->tokens()->delete();
     }

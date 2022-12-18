@@ -8,7 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 //User observer
 use App\Models\User;
-use App\Models\UserObserver;
+use App\Observers\UserObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
